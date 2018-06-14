@@ -1,0 +1,96 @@
+
+Pseudocodigo
+
+Laberinto
+Entrada: tablero:matriz, fila:entero, columna:entero, posActual:posicion, posFinal:posicion, 
+		valorActual:entero, mejorTablero:Matriz, int mejorValor
+Salida: -
+
+	Si esFin(posActual,posFinal)
+		
+		Si (valorActual > mejorValor)
+			mejorValor <- valorActual
+			mejorTablero <- tablero
+		fin si
+		
+	sino
+	
+		// X + 1 
+		
+		posicion nuevaPosicion;
+		nuevaPosicion.x = posActual.x + 1;
+		nuevaPosicion.y = posActual.y;
+		
+		posX = nuevaPosicion.x;
+		posY = nuevaPosicion.y;
+		
+		Si verificarLimites(nuevaPosicion, fila, columna)
+			Si (tablero[posX][posY].visitado=false Y tablero[posX][posY].tipo="A")
+				valorActual = valorActual + tablero[posX][posY].valor 
+				tablero[posX][posY].visitado = true
+				Laberinto(tablero,fila,columna,nuevaPosicion,posFinal,valorActual,mejorTablero,mejorValor)
+				tablero[posX][posY].visitado = falso
+				valorActual = valorActual - tablero[posX][posY].valor
+			fin si
+		fin si
+				
+		// X - 1 
+		
+		posicion nuevaPosicion;
+		nuevaPosicion.x = posActual.x - 1;
+		nuevaPosicion.y = posActual.y;
+		
+		posX = nuevaPosicion.x;
+		posY = nuevaPosicion.y;
+		
+		Si verificarLimites(nuevaPosicion, fila, columna)
+			Si (tablero[posX][posY].visitado=false Y tablero[posX][posY].tipo="A")
+				valorActual = valorActual + tablero[posX][posY].valor 
+				tablero[posX][posY].visitado = true
+				Laberinto(tablero,fila,columna,nuevaPosicion,posFinal,valorActual,mejorTablero,mejorValor)
+				tablero[posX][posY].visitado = falso
+				valorActual = valorActual - tablero[posX][posY].valor
+			fin si
+		fin si
+				
+		// y + 1 
+		
+		posicion nuevaPosicion;
+		nuevaPosicion.x = posActual.x;
+		nuevaPosicion.y = posActual.y + 1;
+		
+		posX = nuevaPosicion.x;
+		posY = nuevaPosicion.y;
+		
+		Si verificarLimites(nuevaPosicion, fila, columna)
+			Si (tablero[posX][posY].visitado=false Y tablero[posX][posY].tipo="A")
+				valorActual = valorActual + tablero[posX][posY].valor 
+				tablero[posX][posY].visitado = true
+				Laberinto(tablero,fila,columna,nuevaPosicion,posFinal,valorActual,mejorTablero,mejorValor)
+				tablero[posX][posY].visitado = falso
+				valorActual = valorActual - tablero[posX][posY].valor
+			fin si
+		fin si
+		
+		// Y - 1 
+		
+		posicion nuevaPosicion;
+		nuevaPosicion.x = posActual.x;
+		nuevaPosicion.y = posActual.y - 1;
+		
+		posX = nuevaPosicion.x;
+		posY = nuevaPosicion.y;
+		
+		Si verificarLimites(nuevaPosicion, fila, columna)
+			Si (tablero[posX][posY].visitado=false Y tablero[posX][posY].tipo="A")
+				valorActual = valorActual + tablero[posX][posY].valor 
+				tablero[posX][posY].visitado = true
+				Laberinto(tablero,fila,columna,nuevaPosicion,posFinal,valorActual,mejorTablero,mejorValor)
+				tablero[posX][posY].visitado = falso
+				valorActual = valorActual - tablero[posX][posY].valor
+			fin si
+		fin si
+		
+Fin Laberinto
+				
+			
