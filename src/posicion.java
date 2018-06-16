@@ -1,6 +1,6 @@
 public class posicion {
-	private int posX;
-	private int posY;
+	public int posX;
+	public int posY;
 	private char estado;
 	private int peso;
 	private boolean visitado;
@@ -8,10 +8,6 @@ public class posicion {
 	public posicion() {
 		this.estado='N';
 		this.visitado=false;
-	}
-	
-	public boolean noHayPared() {
-		return estado=='A';
 	}
 	
 	/* Inicio de los Getters */	
