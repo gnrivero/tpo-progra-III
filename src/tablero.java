@@ -1,30 +1,31 @@
 public class tablero {
-	private posicion[][] tablerito;
+	public posicion[][] tablerito;
+	public int fila,columna;
 
 	public tablero(int fila, int columna) {
 		this.tablerito = new posicion[fila][columna];
+		this.fila = fila;
+		this.columna = columna;
 	}
 	
 	public void reemplazarTablero(tablero tableroNuevo) {
-		char nuevoEstado='N';
-		int nuevoPeso=0;
-		boolean nuevoVisitado=false;
-		for(int i=0; i<tablerito.length; i++) {
-			for(int j=0; j<tablerito[i].length; j++) {
-				nuevoEstado=tableroNuevo.getPosicion(i,j).getEstado();
-				nuevoPeso=tableroNuevo.getPosicion(i,j).getPeso();
-				nuevoVisitado=tableroNuevo.getPosicion(i,j).getVisitado();
-				setPosicion(i, j, nuevoEstado, nuevoPeso, nuevoVisitado);
+		for(int i=0; i<fila; i++) {
+			for(int j=0; j<columna; j++) {
+				posicion nuevaPosicion = tableroNuevo.getPosicion(i, j);
+				
+				setPosicion(i, j, nuevaPosicion.getEstado(), nuevaPosicion.getPeso(), nuevaPosicion.getVisitado());
 			}
 		}
 	}
 	
-	public boolean esFin(posicion posActual, posicion posFin) {
-		return ((posActual.getCoordenadaX() == posFin.getCoordenadaX()) && (posActual.getCoordenadaY() == posFin.getCoordenadaY()));
+	public boolean esFin(posicion posActual, posicion posFinal) {
+		return ((posActual.getCoordenadaX() == posFinal.getCoordenadaX()) && (posActual.getCoordenadaY() == posFinal.getCoordenadaY()));
 	}
 	
 	public boolean verificarLimites(posicion nuevaPosicion) {
-		return ((nuevaPosicion.getCoordenadaX() < tablerito.length) && (nuevaPosicion.getCoordenadaY() < tablerito[0].length));
+		boolean limiteMax = (nuevaPosicion.getCoordenadaX() < this.fila) && (nuevaPosicion.getCoordenadaY() < this.columna);
+		boolean limiteMin = (nuevaPosicion.getCoordenadaX() > -1) && (nuevaPosicion.getCoordenadaY() > -1);
+		return (limiteMax && limiteMin);
 	}
 	
 	/* Inicio de los Getters */
@@ -39,6 +40,7 @@ public class tablero {
 	/* Inicio de los Setters */
 	public void setPosicion(int x, int y, char nuevoEstado, int nuevoPeso, boolean nuevoVisitado) {
 		tablerito[x][y]=new posicion();
+		tablerito[x][y].setCoordenadas(x, y);
 		tablerito[x][y].setEstado(nuevoEstado);
 		tablerito[x][y].setPeso(nuevoPeso);
 		tablerito[x][y].setVisitado(nuevoVisitado);
