@@ -104,7 +104,7 @@ public class laberinto {
 	// Imprime por pantalla V cuando la celda del laberinto fue visitada y F cuando no
 	public void mostrarLaberinto() {
 		
-		System.out.println(" ");
+		System.out.println("  ");
 		
 		for (int i = 0; i < mejorTableroLaberinto.fila ; i++) {
 			for (int j = 0; j < mejorTableroLaberinto.columna; j++) {
