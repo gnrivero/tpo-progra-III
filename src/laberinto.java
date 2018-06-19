@@ -58,7 +58,14 @@ public class laberinto {
 
 					// Obtengo el peso que correspondiente a la posicion
 					procesar = str.substring(0, str.indexOf(','));
-					int nuevoPeso = (int) Integer.parseInt(procesar);
+					int nuevoPeso;
+					
+					if (procesar.equals("X")) {
+						nuevoPeso = 0;
+					} else {
+						nuevoPeso = (int) Integer.parseInt(procesar);
+					}
+					
 					str = str.substring(procesar.length() + 1);
 
 					this.tableroLaberinto.setPosicion(i, j, nuevoEstado, nuevoPeso, false);
@@ -67,8 +74,7 @@ public class laberinto {
 		}
 	}		
 
-	// Retorna TRUE cuando en el archivo hay tantas filas y columnas como
-	// coordenadas
+	// Retorna TRUE cuando en el archivo hay tantas filas y columnas como coordenadas
 	private boolean archivoTxtOk(String archivoTXT) {
 		int counter = 0;
 		String str = convertirArchivoAString(archivoTXT);
@@ -91,13 +97,15 @@ public class laberinto {
 			str = new String(Files.readAllBytes(Paths.get(archivoTXT)));
 		} catch (IOException e) {
 			e.printStackTrace();
-		}
+		} 
 		return str;
 	}
 
-	// Imprime por pantalla V cuando la celda del laberinto fue visitada y F cuando
-	// no.
+	// Imprime por pantalla V cuando la celda del laberinto fue visitada y F cuando no
 	public void mostrarLaberinto() {
+		
+		System.out.println(" ");
+		
 		for (int i = 0; i < mejorTableroLaberinto.fila ; i++) {
 			for (int j = 0; j < mejorTableroLaberinto.columna; j++) {
 								
