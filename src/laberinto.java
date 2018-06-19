@@ -105,21 +105,31 @@ public class laberinto {
 	public void mostrarLaberinto() {
 		
 		System.out.println("  ");
+		System.out.println("Matriz mejor Solución: ");
+		System.out.println("  ");
 		
-		for (int i = 0; i < mejorTableroLaberinto.fila ; i++) {
-			for (int j = 0; j < mejorTableroLaberinto.columna; j++) {
-								
-				if (mejorTableroLaberinto.getPosicion(i, j).getVisitado()) {
-					System.out.print("V");
-				} else {
-					System.out.print("F");
+		try {
+			for (int i = 0; i < mejorTableroLaberinto.fila ; i++) {
+				for (int j = 0; j < mejorTableroLaberinto.columna; j++) {
+					
+					
+									
+					if (mejorTableroLaberinto.getPosicion(i, j).getVisitado()) {
+						System.out.print("V");
+					} else {
+						System.out.print("F");
+					}
+					if (j < numColumnas - 1) {
+						System.out.print(" ");
+					}
 				}
-				if (j < numColumnas - 1) {
-					System.out.print(" ");
-				}
+				System.out.println("");
 			}
-			System.out.println("");
-		}
+		} catch (Exception e) {
+			System.out.println("Segun las posiciones ingresadas, no se pudo encontrar un camino entre los pares.");
+			//e.printStackTrace();
+			
+		} 
 	}
 
 	// Devuelve el recorrido de menor peso que existe entre la posicion origen y la
