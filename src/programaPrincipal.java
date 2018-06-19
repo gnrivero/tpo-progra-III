@@ -8,6 +8,7 @@
  *  
  * 
  */
+import java.io.File;
 import java.util.Scanner;
 
 public class programaPrincipal {
@@ -16,53 +17,71 @@ public class programaPrincipal {
 	public static void main(String[] args) throws Exception {
 		
 		input = new Scanner(System.in);
-	    System.out.println("Ingrese la ubicacion de su archivo TXT: ");
-	    String archivoTXT = input.nextLine();
+
+		//Obtengo el archivo a procesar
+		String rutaArchivoTXT = null;
+		File archivo = null;
+		
+		boolean txtFileExists = false;
+		while (!txtFileExists){
+			
+			System.out.println("Ingrese la ubicacion de su archivo TXT: ");
+		    
+		    rutaArchivoTXT = input.nextLine();
+		    
+		    archivo = new File(rutaArchivoTXT);
+		    
+		    if (!archivo.exists() || !archivo.isFile()) {
+		    	System.out.println("El archivo indicado no existe o no tiene un formato valido, por favor intente nuevamente");
+		    } else {
+		    	txtFileExists = true;
+		    }
+		}
+		
+		laberinto laberintoBack = new laberinto(rutaArchivoTXT);;
+			    
+	    //Obtengo la posicion actual	    	    
+	    int origenEnX = obtenerPosicionValida(input, laberintoBack.getNumFilas(), " X de origen");	    	    	    
+	    int origenEnY = obtenerPosicionValida(input, laberintoBack.getNumColumnas(), " Y de origen");
 	    
-	    //Obtengo la posicion actual
-	    input = new Scanner(System.in);
-	    
-	    System.out.println(" ");
-	    
-	    System.out.println("Ingrese la posicion X de origen: ");
-	    String origenX = input.nextLine();
-	    int origenEnX = Integer.parseInt(origenX);
-	    
-	    System.out.println(" ");
-	    
-	    input = new Scanner(System.in);
-	    System.out.println("Ingrese la posicion Y de origen: ");
-	    String origenY = input.nextLine();
-	    int origenEnY = Integer.parseInt(origenY);
-	    
-	     
 	    posicion posActual = new posicion();
-	    posActual.setCoordenadas(origenEnX,origenEnY);
+	    posActual.setCoordenadas(origenEnX, origenEnY);
 	    
-	    System.out.println(" ");
 	    
-	  //Obtengo la posicion destino
-	    
-	    System.out.println("Ingrese la posicion X de Destino: ");
-	    String destinoX = input.nextLine();
-	    int destinoEnX = Integer.parseInt(destinoX);
-	    
-	    System.out.println(" ");
-	    
-	    input = new Scanner(System.in);
-	    System.out.println("Ingrese la posicion Y de Destino: ");
-	    String destinoY = input.nextLine();
-	    int destinoEnY = Integer.parseInt(destinoY);
+	    //Obtengo la posicion destino	    
+	    int destinoEnX = obtenerPosicionValida(input, laberintoBack.getNumFilas(), " X de destino");
+	    int destinoEnY = obtenerPosicionValida(input, laberintoBack.getNumColumnas(), " Y de destino");
 	    
 	    posicion posFinal = new posicion();
-	    posFinal.setCoordenadas(destinoEnX,destinoEnY);
-	    input.close();
+	    posFinal.setCoordenadas(destinoEnX, destinoEnY);
 	    
-	    System.out.println(" ");
-	    
-	    laberinto laberintoBack = new laberinto(archivoTXT);
+	    input.close();	    	    
+	    	    
 	    laberintoBack.getMejorLaberinto(posActual, posFinal);
 	   
 	    laberintoBack.mostrarLaberinto();
+	    	    
+	    System.exit(0);
 	}
+	
+	private static int obtenerPosicionValida(Scanner input, int limiteMatriz, String coordenada){
+		String strPosicion = null;
+		int posicion = 0;
+		
+		boolean posicionValida = false;
+	    while (!posicionValida){
+	    	System.out.println("Ingrese la posicion " + coordenada + ": ");
+	    	strPosicion = input.nextLine();
+	    	posicion = Integer.parseInt(strPosicion);
+	    	
+	    	if (posicion < 0 || posicion >= limiteMatriz){
+	    		System.out.println("Posicion " + coordenada + " no valida");
+		    }else{
+		    	posicionValida = true;
+		    }
+	    }
+	    
+	    return posicion;
+	}
+	
 }

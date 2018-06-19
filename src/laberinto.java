@@ -7,6 +7,22 @@ public class laberinto {
 	private tablero mejorTableroLaberinto;
 	private int numFilas;
 	private int numColumnas;
+	
+	public int getNumFilas() {
+		return numFilas;
+	}
+	
+	public void setNumFilas(int numFilas) {
+		this.numFilas = numFilas;
+	}
+	
+	public int getNumColumnas() {
+		return numColumnas;
+	}
+	
+	public void setNumColumnas(int numColumnas) {
+		this.numColumnas = numColumnas;
+	}
 
 	public laberinto(String archivoTXT) {
 		String str = convertirArchivoAString(archivoTXT);
@@ -49,7 +65,7 @@ public class laberinto {
 				}
 			}
 		}
-	}
+	}		
 
 	// Retorna TRUE cuando en el archivo hay tantas filas y columnas como
 	// coordenadas

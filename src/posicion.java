@@ -47,5 +47,5 @@ public class posicion {
 	
 	public void setVisitado(boolean nuevoVisitado) {
 		this.visitado = nuevoVisitado;
-	}
+	}		
 }
