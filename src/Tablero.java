@@ -2,11 +2,13 @@ public class Tablero {
 		
 	public Posicion[][] tablerito;
 	public int fila, columna;
+	public int valor;
 
 	public Tablero(int fila, int columna) {
 		this.tablerito = new Posicion[fila][columna];
 		this.fila = fila;
 		this.columna = columna;
+		this.valor = 0;
 	}
 	
 	public void reemplazarTablero(Tablero tableroNuevo) {
@@ -46,4 +48,13 @@ public class Tablero {
 		tablerito[x][y].setPeso(nuevoPeso);
 		tablerito[x][y].setVisitado(nuevoVisitado);
 	}
+	
+	public int getValor() {
+		return this.valor;
+	}
+	
+	public void setValor(int valor) {
+		this.valor = valor;
+	}
+	
 }
