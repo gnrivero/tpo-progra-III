@@ -141,6 +141,8 @@ public class Laberinto {
 	// Devuelve el recorrido de menor peso que existe entre la posicion origen y la
 	// destino
 	public Tablero getMejorLaberinto(Posicion posActual, Posicion posFinal) {
+		int valorPrimerCasillero = tableroLaberinto.tablerito[posActual.getCoordenadaX()][posActual.getCoordenadaY()].getPeso();
+		tableroLaberinto.setValor(valorPrimerCasillero);
 		resolverLaberinto(this.tableroLaberinto, posActual, posFinal, this.mejorTableroLaberinto);
 		return mejorTableroLaberinto;
 	}
