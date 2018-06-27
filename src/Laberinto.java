@@ -2,9 +2,10 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
-public class laberinto {
-	private tablero tableroLaberinto;
-	private tablero mejorTableroLaberinto;
+public class Laberinto {
+	
+	private Tablero tableroLaberinto;
+	private Tablero mejorTableroLaberinto;
 	private int numFilas;
 	private int numColumnas;
 	
@@ -24,7 +25,7 @@ public class laberinto {
 		this.numColumnas = numColumnas;
 	}
 
-	public laberinto(String archivoTXT) {
+	public Laberinto(String archivoTXT) {
 		String str = convertirArchivoAString(archivoTXT);
 
 		// Obtengo la cantidad de filas del laberinto
@@ -38,8 +39,8 @@ public class laberinto {
 		numColumnas = Integer.parseInt(procesar);
 		str = str.substring(procesar.length() + 2);
 
-		tableroLaberinto = new tablero(numFilas, numColumnas);
-		mejorTableroLaberinto = new tablero(numFilas, numColumnas);
+		tableroLaberinto = new Tablero(numFilas, numColumnas);
+		mejorTableroLaberinto = new Tablero(numFilas, numColumnas);
 
 		// Reemplazo los parentesis por comas
 		str = str.replaceAll("\\(", "");
@@ -105,7 +106,7 @@ public class laberinto {
 	public void mostrarLaberinto() {
 		
 		System.out.println("  ");
-		System.out.println("Matriz mejor Solución: ");
+		System.out.println("Matriz mejor Soluciï¿½n: ");
 		System.out.println("  ");
 		
 		try {
@@ -134,16 +135,14 @@ public class laberinto {
 
 	// Devuelve el recorrido de menor peso que existe entre la posicion origen y la
 	// destino
-	public tablero getMejorLaberinto(posicion posActual, posicion posFinal) {
+	public Tablero getMejorLaberinto(Posicion posActual, Posicion posFinal) {
 		int valorActual = 0;
 		int mejorValor = 0;
-		resolverLaberinto(this.tableroLaberinto, posActual, posFinal, valorActual, this.mejorTableroLaberinto,
-				mejorValor);
+		resolverLaberinto(this.tableroLaberinto, posActual, posFinal, valorActual, this.mejorTableroLaberinto, mejorValor);
 		return mejorTableroLaberinto;
 	}
 
-	private void resolverLaberinto(tablero tableroLaberinto, posicion posActual, posicion posFinal, int valorActual,
-			tablero mejorTableroLaberinto, int mejorValor) {
+	private void resolverLaberinto(Tablero tableroLaberinto, Posicion posActual, Posicion posFinal, int valorActual, Tablero mejorTableroLaberinto, int mejorValor) {
 		tableroLaberinto.tablerito[posActual.getCoordenadaX()][posActual.getCoordenadaY()].setVisitado(true);
 		if (tableroLaberinto.esFin(posActual, posFinal)) {
 			if (valorActual > mejorValor) {
@@ -153,73 +152,69 @@ public class laberinto {
 		} else {
 
 			// X + 1
-			posicion nuevaPosicion = new posicion();
+			Posicion nuevaPosicion = new Posicion();
 			nuevaPosicion.setCoordenadas(posActual.getCoordenadaX() + 1, posActual.getCoordenadaY());
 			
-			if (tableroLaberinto.verificarLimites(nuevaPosicion)) {
-				nuevaPosicion =  tableroLaberinto.tablerito[posActual.getCoordenadaX() + 1][posActual.getCoordenadaY()];
+			if (tableroLaberinto.verificarLimites(nuevaPosicion)) {				
+				nuevaPosicion = tableroLaberinto.getPosicion(posActual.getCoordenadaX() + 1, posActual.getCoordenadaY());						
 				int posX = nuevaPosicion.getCoordenadaX();
 				int posY = nuevaPosicion.getCoordenadaY();
 				if ((!nuevaPosicion.getVisitado()) && (nuevaPosicion.getEstado() == 'A')) {
 					valorActual = valorActual + nuevaPosicion.getPeso();
-					tableroLaberinto.tablerito[posX][posY].setVisitado(true);
-					resolverLaberinto(tableroLaberinto, nuevaPosicion, posFinal, valorActual, mejorTableroLaberinto,
-							mejorValor);
-					tableroLaberinto.tablerito[posX][posY].setVisitado(false);
+					tableroLaberinto.getPosicion(posX,posY).setVisitado(true);
+					resolverLaberinto(tableroLaberinto, nuevaPosicion, posFinal, valorActual, mejorTableroLaberinto, mejorValor);
+					tableroLaberinto.getPosicion(posX,posY).setVisitado(false);
 					valorActual = valorActual - nuevaPosicion.getPeso();
 				}
 			}
 
 			// X - 1
-			
+			nuevaPosicion = new Posicion();
 			nuevaPosicion.setCoordenadas(posActual.getCoordenadaX() - 1, posActual.getCoordenadaY());
 
 			if (tableroLaberinto.verificarLimites(nuevaPosicion)) {
-				nuevaPosicion =  tableroLaberinto.tablerito[posActual.getCoordenadaX() - 1][posActual.getCoordenadaY()];
+				nuevaPosicion =  tableroLaberinto.getPosicion(posActual.getCoordenadaX() - 1, posActual.getCoordenadaY());
 				int posX = nuevaPosicion.getCoordenadaX();
 				int posY = nuevaPosicion.getCoordenadaY();
 				if ((!nuevaPosicion.getVisitado()) && (nuevaPosicion.getEstado() == 'A')) {
 					valorActual = valorActual + nuevaPosicion.getPeso();
-					tableroLaberinto.tablerito[posX][posY].setVisitado(true);
-					resolverLaberinto(tableroLaberinto, nuevaPosicion, posFinal, valorActual, mejorTableroLaberinto,
-							mejorValor);
-					tableroLaberinto.tablerito[posX][posY].setVisitado(false);
+					tableroLaberinto.getPosicion(posX,posY).setVisitado(true);
+					resolverLaberinto(tableroLaberinto, nuevaPosicion, posFinal, valorActual, mejorTableroLaberinto, mejorValor);
+					tableroLaberinto.getPosicion(posX,posY).setVisitado(false);
 					valorActual = valorActual - nuevaPosicion.getPeso();
 				}
 			}
 
 			// Y + 1
-			
+			nuevaPosicion = new Posicion();
 			nuevaPosicion.setCoordenadas(posActual.getCoordenadaX(), posActual.getCoordenadaY() + 1);
 
 			if (tableroLaberinto.verificarLimites(nuevaPosicion)) {
-				nuevaPosicion =  tableroLaberinto.tablerito[posActual.getCoordenadaX()][posActual.getCoordenadaY() + 1];
+				nuevaPosicion =  tableroLaberinto.getPosicion(posActual.getCoordenadaX(),posActual.getCoordenadaY() + 1);
 				int posX = nuevaPosicion.getCoordenadaX();
 				int posY = nuevaPosicion.getCoordenadaY();
 				if ((!nuevaPosicion.getVisitado()) && (nuevaPosicion.getEstado() == 'A')) {
 					valorActual = valorActual + nuevaPosicion.getPeso();
-					tableroLaberinto.tablerito[posX][posY].setVisitado(true);
-					resolverLaberinto(tableroLaberinto, nuevaPosicion, posFinal, valorActual, mejorTableroLaberinto,
-							mejorValor);
-					tableroLaberinto.tablerito[posX][posY].setVisitado(false);
+					tableroLaberinto.getPosicion(posX,posY).setVisitado(true);
+					resolverLaberinto(tableroLaberinto, nuevaPosicion, posFinal, valorActual, mejorTableroLaberinto, mejorValor);
+					tableroLaberinto.getPosicion(posX,posY).setVisitado(false);
 					valorActual = valorActual - nuevaPosicion.getPeso();
 				}
 			}
 
 			// Y - 1
-			
+			nuevaPosicion = new Posicion();
 			nuevaPosicion.setCoordenadas(posActual.getCoordenadaX(), posActual.getCoordenadaY() - 1);
 
 			if (tableroLaberinto.verificarLimites(nuevaPosicion)) {
-				nuevaPosicion =  tableroLaberinto.tablerito[posActual.getCoordenadaX()][posActual.getCoordenadaY() - 1];
+				nuevaPosicion =  tableroLaberinto.getPosicion(posActual.getCoordenadaX(),posActual.getCoordenadaY() - 1);
 				int posX = nuevaPosicion.getCoordenadaX();
 				int posY = nuevaPosicion.getCoordenadaY();
 				if ((!nuevaPosicion.getVisitado()) && (nuevaPosicion.getEstado() == 'A')) {
 					valorActual = valorActual + nuevaPosicion.getPeso();
-					tableroLaberinto.tablerito[posX][posY].setVisitado(true);
-					resolverLaberinto(tableroLaberinto, nuevaPosicion, posFinal, valorActual, mejorTableroLaberinto,
-							mejorValor);
-					tableroLaberinto.tablerito[posX][posY].setVisitado(false);
+					tableroLaberinto.getPosicion(posX,posY).setVisitado(true);
+					resolverLaberinto(tableroLaberinto, nuevaPosicion, posFinal, valorActual, mejorTableroLaberinto, mejorValor);
+					tableroLaberinto.getPosicion(posX,posY).setVisitado(false);
 					valorActual = valorActual - nuevaPosicion.getPeso();
 				}
 			}

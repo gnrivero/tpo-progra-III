@@ -1,11 +1,12 @@
-public class posicion {
-	public int posX;
-	public int posY;
+public class Posicion {
+	
+	private int posX;
+	private int posY;
 	private char estado;
 	private int peso;
 	private boolean visitado;
 	
-	public posicion() {
+	public Posicion() {
 		this.estado='N';
 		this.visitado=false;
 	}

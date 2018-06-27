@@ -11,7 +11,8 @@
 import java.io.File;
 import java.util.Scanner;
 
-public class programaPrincipal {
+public class ProgramaPrincipal {
+	
 	private static Scanner input;
 
 	public static void main(String[] args) throws Exception {
@@ -19,7 +20,8 @@ public class programaPrincipal {
 		input = new Scanner(System.in);
 
 		//Obtengo el archivo a procesar
-		String rutaArchivoTXT = null;
+		//TODO: debug 
+		String rutaArchivoTXT = "/home/grivero/dev/workspace-neon/tpo-progra-III/src/laberinto.txt";
 		File archivo = null;
 		
 		boolean txtFileExists = false;
@@ -27,7 +29,8 @@ public class programaPrincipal {
 			
 			System.out.println("Ingrese la ubicacion de su archivo TXT: ");
 		    
-		    rutaArchivoTXT = input.nextLine();
+			if(rutaArchivoTXT == null)
+				rutaArchivoTXT = input.nextLine();
 		    
 		    archivo = new File(rutaArchivoTXT);
 		    
@@ -38,29 +41,31 @@ public class programaPrincipal {
 		    }
 		}
 		
-		laberinto laberintoBack = new laberinto(rutaArchivoTXT);;
+		Laberinto laberintoBack = new Laberinto(rutaArchivoTXT);
 			    
-	    //Obtengo la posicion actual	    	    
-	    int origenEnX = obtenerPosicionValida(input, laberintoBack.getNumFilas(), " X de origen");	    	    	    
-	    int origenEnY = obtenerPosicionValida(input, laberintoBack.getNumColumnas(), " Y de origen");
+	    //Obtengo la posicion actual
+		//TODO: Debug
+	    int origenEnX = 0;//obtenerPosicionValida(input, laberintoBack.getNumFilas(), " X de origen");	    	    	    
+	    int origenEnY = 0;//obtenerPosicionValida(input, laberintoBack.getNumColumnas(), " Y de origen");
 	    
-	    posicion posActual = new posicion();
+	    Posicion posActual = new Posicion();
 	    posActual.setCoordenadas(origenEnX, origenEnY);
 	    
 	    
-	    //Obtengo la posicion destino	    
-	    int destinoEnX = obtenerPosicionValida(input, laberintoBack.getNumFilas(), " X de destino");
-	    int destinoEnY = obtenerPosicionValida(input, laberintoBack.getNumColumnas(), " Y de destino");
+	    //Obtengo la posicion destino
+		//TODO: Debug
+	    int destinoEnX = 3;//obtenerPosicionValida(input, laberintoBack.getNumFilas(), " X de destino");
+	    int destinoEnY = 1;//obtenerPosicionValida(input, laberintoBack.getNumColumnas(), " Y de destino");
 	    
-	    posicion posFinal = new posicion();
+	    Posicion posFinal = new Posicion();
 	    posFinal.setCoordenadas(destinoEnX, destinoEnY);
 	    
-	    input.close();	    	    
-	    	    
+	    input.close();
+	    
 	    laberintoBack.getMejorLaberinto(posActual, posFinal);
 	   
 	    laberintoBack.mostrarLaberinto();
-	    	    
+	    
 	    System.exit(0);
 	}
 	
