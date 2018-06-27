@@ -131,15 +131,13 @@ public class Laberinto {
 			System.out.println("Mejor Valor: " + mejorTableroLaberinto.getValor());
 			
 		} catch (Exception e) {
-			System.out.println("Segun las posiciones ingresadas, no se pudo encontrar un camino entre los pares.");
 			System.out.println("");
-			System.out.println("Mejor Valor: " + mejorTableroLaberinto.getValor());
-			
+			System.out.println("Segun las posiciones ingresadas, no se pudo encontrar un camino entre los pares.");
+					
 		} 
 	}
 
-	// Devuelve el recorrido de menor peso que existe entre la posicion origen y la
-	// destino
+	// Devuelve el recorrido de mayor peso que existe entre la posicion origen y el destino
 	public Tablero getMejorLaberinto(Posicion posActual, Posicion posFinal) {
 		int valorPrimerCasillero = tableroLaberinto.tablerito[posActual.getCoordenadaX()][posActual.getCoordenadaY()].getPeso();
 		tableroLaberinto.setValor(valorPrimerCasillero);
@@ -154,9 +152,7 @@ public class Laberinto {
 		if (tableroLaberinto.esFin(posActual, posFinal)) {
 			int mejorValor = mejorTableroLaberinto.getValor();
 			int valorActual = tableroLaberinto.getValor();
-			System.out.println("IF");
-			System.out.println("mejor valor "+mejorValor);
-			System.out.println("valorActual "+valorActual);
+	
 			if (valorActual > mejorValor) {
 				mejorTableroLaberinto.setValor(valorActual);
 				

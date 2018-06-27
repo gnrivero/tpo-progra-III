@@ -3,7 +3,7 @@
  * 
  * 	Integrantes:
  * 					Martin Buzzetti
- * 					PAblo Forcadell
+ * 					Pablo Forcadell
  * 					Gonzalo Rivero
  *  
  * 
@@ -26,7 +26,6 @@ public class ProgramaPrincipal {
 		
 		boolean txtFileExists = false;
 		while (!txtFileExists){
-			
 			System.out.println("Ingrese la ubicacion de su archivo TXT: ");
 		    
 			
@@ -50,7 +49,6 @@ public class ProgramaPrincipal {
 	    
 	    Posicion posActual = new Posicion();
 	    posActual.setCoordenadas(origenEnX, origenEnY);
-	    
 	    
 	    //Obtengo la posicion destino
 		
